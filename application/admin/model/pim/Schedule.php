@@ -29,10 +29,18 @@ class Schedule extends Model
     ];
     
 
+    protected static function init()
+    {
+        self::afterInsert(function ($row) {
+            $pk = $row->getPk();
+            $row->getQuery()->where($pk, $row[$pk])->update(['weigh' => $row[$pk]]);
+        });
+    }
+
     
     public function getStatusList()
     {
-        return ['0' => __('Status 0'), '1' => __('Status 1'), '2' => __('Status 2'), '9' => __('Status 9')];
+        return ['0' => __('Status 0'), '1' => __('Status 1'), '2' => __('Status 2')];
     }
 
 

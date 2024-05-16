@@ -21,22 +21,50 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             table.bootstrapTable({
                 url: $.fn.bootstrapTable.defaults.extend.index_url,
                 pk: 'id',
-                sortName: 'id',
+                sortName: 'weigh',
                 fixedColumns: true,
                 fixedRightNumber: 1,
                 columns: [
                     [
                         {checkbox: true},
-                        {field: 'id', title: __('Id')},
-                        {field: 'stime', title: __('Stime'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime},
-                        {field: 'etime', title: __('Etime'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime},
+                        {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate,
+                            formatter: function (value, row, index) {
+                                var that = $.extend({},this);
+                                var table = $(that.table).clone(true);
+
+                                $(table).data("operate-edit",false);
+                                $(table).data("operate-del",false)
+
+                                that.table = table;
+                                return Table.api.formatter.operate.call(that,value,row,index);
+                            }
+                        },
                         {field: 'title', title: __('Title'), operate: 'LIKE'},
-                        {field: 'attachfile', title: __('Attachfile'), operate: false, formatter: Table.api.formatter.file},
-                        {field: 'status', title: __('Status'), searchList: {"0":__('Status 0'),"1":__('Status 1'),"2":__('Status 2'),"9":__('Status 9')}, formatter: Table.api.formatter.status},
-                        {field: 'createtime', title: __('Createtime'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime},
-                        {field: 'updatetime', title: __('Updatetime'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime},
-                        {field: 'weign', title: __('Weign')},
-                        {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
+                        {field: 'stime', title: __('Stime'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, 
+                            formatter: function (value,row) {
+                                if(row.stime == '2000-01-01 00:00:01'){
+                                    return __('StimeTitle');
+                                }
+                                return row.stime;
+                            }
+                        },
+                        {field: 'etime', title: __('Etime'), operate:'RANGE', addclass:'datetimerange', autocomplete:false,
+                            formatter: function (value,row) {
+                                if(row.etime == '2000-01-01 00:00:01'){
+                                    return __('EtimeTitle');
+                                }
+                                return row.etime;
+                            }
+                        },
+                        {field: 'attachfile', title: __('Attachfile'), operate: false, formatter: function (value,row,index) {
+                                if(row.attachfile == ''){
+                                    return "";
+                                }else{
+                                    return "<a href='"+row.attachfile+"' target='_blank'>"+__('View')+"</a>";
+                                }
+                            }},
+                        {field: 'status', title: __('Status'), searchList: {"0":__('Status 0'),"1":__('Status 1'),"2":__('Status 2')}, formatter: Table.api.formatter.status},
+
                     ]
                 ]
             });

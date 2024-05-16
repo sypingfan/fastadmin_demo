@@ -18,6 +18,16 @@ class Schedule extends Backend
      */
     protected $model = null;
 
+    protected $dataLimit = true;
+    protected $dataLimitField = 'admin_id';
+
+
+
+
+    /**
+     * 数据限制开启时自动填充限制字段值
+     */
+    protected $dataLimitFieldAutoFill = true;
     public function _initialize()
     {
         parent::_initialize();

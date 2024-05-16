@@ -1,7 +1,10 @@
 <?php
 
 return [
+    'Admin_id'    => '所属用户',
+    'StimeTitle' =>'未开始',
     'Stime'       => '开始时间',
+    'EtimeTitle' =>'未结束',
     'Etime'       => '结束时间',
     'Title'       => '事务',
     'Maincontent' => '内容说明',
@@ -13,10 +16,8 @@ return [
     'Set status to 1'=> '设为进行中',
     'Status 2'    => '已完成',
     'Set status to 2'=> '设为已完成',
-    'Status 9'    => '已取消',
-    'Set status to 9'=> '设为已取消',
     'Createtime'  => '创建时间',
     'Updatetime'  => '更新时间',
     'Deletetime'  => '删除时间',
-    'Weign'       => '权重'
+    'Weigh'       => '权重'
 ];
