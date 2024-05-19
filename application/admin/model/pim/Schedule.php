@@ -51,6 +51,19 @@ class Schedule extends Model
         return isset($list[$value]) ? $list[$value] : '';
     }
 
+    public function setDeadLineAttr($value)
+    {
+
+        if ($value == '' || !isset($value)){
+            // 如果画面截止时间为空，则插入null
+            return null;
+        }else{
+            // 如果不为空，原值返回
+            return $value;
+        }
+
+    }
+
 
 
 

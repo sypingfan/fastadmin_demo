@@ -22,4 +22,5 @@ return [
     'Weigh'       => '权重',
     "CostHours"    => "消耗时间",
     "Unit"        => "小时",
+    "DeadLine"  =>"截止时间",
 ];

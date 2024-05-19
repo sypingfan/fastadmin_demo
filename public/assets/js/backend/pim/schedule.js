@@ -70,7 +70,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                             }
                         },
                         {field: 'title', title: __('Title'), operate: 'LIKE'},
-                        {field: 'stime', title: __('Stime'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, 
+                        {field: 'deadline', title: __('Deadline'), operate: 'RANGE',formatter:Table.api.formatter.dateonly},
+                        {field: 'stime', title: __('Stime'), operate:'RANGE', addclass:'datetimerange', autocomplete:false,
                             formatter: function (value,row) {
                                 if(row.stime == '2000-01-01 00:00:01'){
                                     return __('StimeTitle');

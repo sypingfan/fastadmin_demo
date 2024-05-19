@@ -901,6 +901,14 @@ define(['jquery', 'bootstrap', 'moment', 'moment/locale/zh-cn', 'bootstrap-table
                         return value ? Moment(parseInt(value) * 1000).format(datetimeFormat) : __('None');
                     }
                 },
+                dateonly: function (value, row, index) {
+                    var datetimeFormat = typeof this.datetimeFormat === 'undefined' ? 'YYYY-MM-DD' : this.datetimeFormat;
+                    if (isNaN(value)) {
+                        return value ? Moment(value).format(datetimeFormat) : __('None');
+                    } else {
+                        return value ? Moment(parseInt(value) * 1000).format(datetimeFormat) : __('None');
+                    }
+                },
                 operate: function (value, row, index) {
                     var table = this.table;
                     // 操作配置
