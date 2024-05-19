@@ -86,6 +86,23 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                                 return row.etime;
                             }
                         },
+                        {
+                            field:'consthours',title:__("CostHours") + '('+__("Unit")+')',formatter(value,row,index){
+                                if(row.etime == '2000-01-01 00:00:01'){
+                                    return "未设定";
+                                }else{
+                                    etime = new Date(row.etime.toString());
+                                    stime = new Date(row.stime.toString());
+
+                                    if(etime - stime < 0){
+                                        return __('Stime')+"或"+__('Etime')+"错误"
+                                    }else{
+                                        return ((etime - stime) / 100 * 60 * 60).toFixed(1);
+                                    }
+                                }
+                                return row.consthours;
+                            }
+                        },
                         {field: 'attachfile', title: __('Attachfile'), operate: false, formatter: function (value,row,index) {
                                 if(row.attachfile == ''){
                                     return "";
