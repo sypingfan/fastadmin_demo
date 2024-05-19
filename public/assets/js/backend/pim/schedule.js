@@ -9,8 +9,6 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     add_url: 'pim/schedule/add',
                     edit_url: 'pim/schedule/edit',
                     del_url: 'pim/schedule/del',
-                    multi_url: 'pim/schedule/multi',
-                    import_url: 'pim/schedule/import',
                     table: 'pim_schedule',
                 }
             });
@@ -27,10 +25,42 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                 columns: [
                     [
                         {checkbox: true},
-                        {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate,
+                        {field: 'operate', title: __('Operate'),
+                            table: table,
+                            buttons: [
+                                {
+                                    name:'start',
+                                    text:'',
+                                    classname:'btn btn-xs btn-info btn-ajax btn-restoreit',
+                                    icon:'fa fa-play',
+                                    url:'pim/schedule/start',
+                                    confirm:'是否开始',
+                                    refresh:true
+,                                },
+                                {
+                                    name:'finish',
+                                    text:'',
+                                    classname:'btn btn-xs btn-danger btn-ajax btn-restoreit',
+                                    icon:'fa fa-stop',
+                                    url:'pim/schedule/finish',
+                                    confirm:'是否结束',
+                                    refresh:true
+                                    ,                                }
+                            ],
+                            events: Table.api.events.operate,
                             formatter: function (value, row, index) {
                                 var that = $.extend({},this);
                                 var table = $(that.table).clone(true);
+
+                                if(row.status == 0){
+                                    $(table).data("operate-finish",null);
+                                }else if(row.status == 1){
+                                    $(table).data("operate-start",null);
+                                }else if(row.status == 2){
+                                    $(table).data("operate-start",null);
+                                    $(table).data("operate-finish",null);
+
+                                }
 
                                 $(table).data("operate-edit",false);
                                 $(table).data("operate-del",false)
